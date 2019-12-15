@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
-import UserInput from './Person/UserInput';
-import UserOutput from './Person/UserOutput';
+import UserInput from './UserInput/UserInput';
+import UserOutput from './UserOutput/UserOutput';
 
 class App extends Component {
   state = {
@@ -87,9 +87,10 @@ class App extends Component {
           name={this.state.persons[2].name}
           age={this.state.persons[2].age} />
         <UserInput 
-         style={styleUserInput}
+          style={styleUserInput}
           userNameChanged={this.userNameChangeHandler}
           username = {this.state.username}
+          currentUserName = {this.state.username}
         ></UserInput>
         <UserOutput  username={this.state.username}></UserOutput>
       </div>
