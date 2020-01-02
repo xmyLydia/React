@@ -6,17 +6,36 @@ import Cockpit from '../components/Cockpit/Cockpit';
 
 
 class App extends Component {
-  state = {
-    persons: [
-      { id: '1', name: 'Max', age: 28 },
-      { id: '2', name: 'Manu', age: 29 },
-      { id: '3', name: 'Stephanie', age: 26 }
-    ],
-    otherState: 'some other value',
-    username: 'stateUserName',
-    showPersons: false
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constuctor');
+    this.state = {
+      persons: [
+        { id: '1', name: 'Max', age: 28 },
+        { id: '2', name: 'Manu', age: 29 },
+        { id: '3', name: 'Stephanie', age: 26 }
+      ],
+      otherState: 'some other value',
+      username: 'stateUserName',
+      showPersons: false
+    }
   }
 
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[App.js shouldComponentUpdate');
+    return true;
+  }
+  componentDidUpdate() {
+    console.log('[App.js component did update');
+  }
   deletePersonHandler = (personIndex) => {
     const persons = [...this.state.persons];
     persons.splice(personIndex, 1);
@@ -45,6 +64,8 @@ class App extends Component {
     this.setState({ showPersons: !doesShow });
   }
   render() {
+    console.log('[App.js] render');
+
     let persons = null;
     if (this.state.showPersons) {
       persons = (
