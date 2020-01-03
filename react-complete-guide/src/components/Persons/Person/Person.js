@@ -3,6 +3,10 @@ import classes from './Person.css';
 import { render } from 'react-dom';
 
 class Person extends Component {
+    componentWillUnmount(){
+        console.log('[Persons.js] componentWillUnmount');
+    }
+   
     render() { 
         console.log('[Person.js] rendering...');
         return (
