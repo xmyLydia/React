@@ -3,7 +3,8 @@ import './App.css';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
-
+import withClass from '../hoc/WithClass';
+import Aux from '../hoc/Auxiliary';
 
 class App extends Component {
   constructor(props) {
@@ -11,14 +12,15 @@ class App extends Component {
     console.log('[App.js] constuctor');
     this.state = {
       persons: [
-        { id: '1', name: 'Max', age: 28 },
+        { id: '1', name: 'Max', age: 25 },
         { id: '2', name: 'Manu', age: 29 },
         { id: '3', name: 'Stephanie', age: 26 }
       ],
       otherState: 'some other value',
       username: 'stateUserName',
       showPersons: false,
-      showCockpit: true
+      showCockpit: true,
+      changeCounter: 0
     }
   }
 
@@ -54,13 +56,13 @@ class App extends Component {
     person.name = event.target.value;
     const persons = [...this.state.persons];
     persons[personIndex] = person;
-    this.setState(
-      {
-        persons: persons
-      }
-    )
+    this.setState((previousState, props)=>{
+      return { 
+          persons: persons,
+          changeCounter: previousState.changeCounter + 1 
+      }; 
+   });
   }
-
   togglePersonHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState({ showPersons: !doesShow });
@@ -82,7 +84,7 @@ class App extends Component {
     };
 
     return (
-      <div className={classes.App}>
+      <Aux classes={classes.App}>
         <button onClick={()=>{
           this.setState({showCockpit:false});
         }} >Remove cockpit</button>
@@ -92,9 +94,9 @@ class App extends Component {
           personsLength={this.state.persons.length}
           clicked={this.togglePersonHandler} />: null}
         {persons}
-      </div>
+      </Aux>
     );
   }
 }
 
-export default App;
+export default withClass(App, classes.App);
