@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Posts from './Posts/Posts';
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 import './Blog.module.css';
 import axios from '../../axios';
 import NewPost from './NewPost/NewPost';
@@ -8,6 +8,9 @@ import Post from './FullPost/FullPost';
 //import axios from 'axios';
 
 class Blog extends Component {
+    state = {
+        auth: false
+    }
     render() {
         return (
             <div className="Blog">
@@ -36,9 +39,10 @@ class Blog extends Component {
                 {/* <Route path="/" exact render={()=><h1>Home</h1>}/>
               <Route path="/"  render={()=><h1>Home2</h1>}/>*/}
                 <Switch>
-                    <Route path="/new-post" component={NewPost} />
+                    {this.state.auth ? <Route path="/new-post" component={NewPost} /> : null}
                     <Route path="/posts" component={Posts} />
-
+                    <Route render={() => <h1>Not found</h1>} />
+                    {/*<Redirect from="/" to="/posts" />*/}
                 </Switch>
             </div>
         );
