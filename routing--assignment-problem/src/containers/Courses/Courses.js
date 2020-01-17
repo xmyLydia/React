@@ -29,15 +29,9 @@ class Courses extends Component {
             onClick={() => this.postSelectedHandler(course.id, course.title)}
             >{course.title}</div>  ;
         } );
-        const courseDisplay = ( 
-             <Course  
-            className="Course" 
-            title = {this.state.choosedTitle}
-            id = {this.state.choosedTitle}
-            /> 
-         );
+      
         return (
-            <div>
+            <div> 
                 <h1>Amazing Udemy Courses</h1>
                 <section className="Courses">
                     {courses}
