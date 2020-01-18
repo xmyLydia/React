@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Aux from '../../../hoc/Auxiliary/Auxiliary';
 import Button from '../../UI/Button/Button';
+import {Route, Link} from 'react-router-dom';
+import Checkout from '../../../containers/Checkout/Checkout';
+ 
 
 class OrderSummary extends Component { 
 
@@ -29,7 +32,8 @@ class OrderSummary extends Component {
             <Button
                 btnType="Success"
                 clicked={this.props.purchaseContinued}
-            >CONTINUE</Button>
+            > CONTINUE </Button>
+          
         </Aux>);
     } 
 };
