@@ -33,7 +33,7 @@ class App extends Component {
           <Switch>
            
             <Redirect from="/all-courses" to="/courses" />
-            <Route path="/courses" exact component={Courses} />
+            <Route path="/courses" component={Courses} />
             <Route path="/users" exact component={Users} />
             <Route render={() => <h1>404 Not found</h1>} />
 

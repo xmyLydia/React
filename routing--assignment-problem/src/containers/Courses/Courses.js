@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Course from '../Course/Course';
-import { Route, NavLink } from 'react-router-dom';
+import { Route, NavLink, Link } from 'react-router-dom';
 import './Courses.css';
 
 class Courses extends Component {
@@ -9,29 +9,32 @@ class Courses extends Component {
             { id: 1, title: 'Angular - The Complete Guide' },
             { id: 2, title: 'Vue - The Complete Guide' },
             { id: 3, title: 'PWA - The Complete Guide' }
-        ] ,
-        choosedTitle:null,
+        ],
+        choosedTitle: null,
         choosedId: null
     }
     postSelectedHandler = (id, title) => {
-       
-        this.props.history.push({
-            pathname: '/courses/' + id  
+
+    /*    this.props.history.push({
+            pathname: '/courses/' + id
         });
-        this.setState({choosedId: id, choosedTitle: title})
+        */
+        this.setState({ choosedId: id, choosedTitle: title })
     }
 
     render() {
-        const courses =  this.state.courses.map( course => {
-            return  <div 
-            key={course.id}
+        const courses = this.state.courses.map(course => {
+            return <div
+                key={course.id}
+                className="Course"
             className="Course" 
+                className="Course"
             onClick={() => this.postSelectedHandler(course.id, course.title)}
-            >{course.title}</div>  ;
-        } );
-      
+            ><Link to={'/courses/' + course.id}>{course.title}</Link></div>;
+        });
+
         return (
-            <div> 
+            <div>
                 <h1>Amazing Udemy Courses</h1>
                 <section className="Courses">
                     {courses}
@@ -40,7 +43,7 @@ class Courses extends Component {
                 render={()=>
                 <Course   
                 title = {this.state.choosedTitle} 
-                id = {this.state.choosedTitle}
+                id = {this.state.choosedId}
             /> } />
             </div>
         );
