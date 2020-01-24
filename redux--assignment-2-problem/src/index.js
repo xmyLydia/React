@@ -7,10 +7,8 @@ import registerServiceWorker from './registerServiceWorker';
 import { createStore, combineReducers } from 'redux';
 import Reducer from '../src/store/reducer';
 
-const rootReducer = combineReducers({
-    pes: Reducer
-})
 
-const store = createStore(rootReducer);
+
+const store = createStore(Reducer);
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 registerServiceWorker();

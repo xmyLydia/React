@@ -5,10 +5,8 @@ import AddPerson from '../components/AddPerson/AddPerson';
 import * as actionTypes from '../store/actions';
 
 class Persons extends Component {
-    state = {
-        persons: []
-    }
- 
+
+
     // personAddedHandler = () => {
     //     const newPerson = {
     //         id: Math.random(), // not really unique but good enough here!
@@ -26,21 +24,17 @@ class Persons extends Component {
     //     } );
     // }
 
-    render () {
-        const newPerson = {
-            id: Math.random(), // not really unique but good enough here!
-            name: 'Max',
-            age: Math.floor( Math.random() * 40 )
-        }
+    render() {
+
         return (
             <div>
-                <AddPerson personAdded={()=>this.props.onPersonAdd(newPerson)} />
+                <AddPerson personAdded={this.props.onPersonAdd} />
                 {this.props.storedPersons.map(person => (
-                    <Person 
-                        key={person.value.id}
-                        name={person.value.name} 
-                        age={person.value.age} 
-                        clicked={() => this.props.onPersonDelete(person.id)}/>
+                    <Person
+                        key={person.id}
+                        name={person.name}
+                        age={person.age}
+                        clicked={() => this.props.onPersonDelete(person.id)} />
                 ))}
             </div>
         );
@@ -48,14 +42,14 @@ class Persons extends Component {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        onPersonAdd: (addedPerson) => dispatch({ type: actionTypes.PERSON_ADD, person: addedPerson }),
+        onPersonAdd: (name, age) => dispatch({ type: actionTypes.PERSON_ADD, personData:{name: name, age: age} }),
         onPersonDelete: (id) => dispatch({ type: actionTypes.PERSON_DELETE, personId: id })
     }
 }
 
 const mapStateToProps = state => {
-    return { 
-        storedPersons: state.pes.persons
+    return {
+        storedPersons: state.persons
     }
 }
 
