@@ -37,9 +37,9 @@ class Persons extends Component {
                 <AddPerson personAdded={()=>this.props.onPersonAdd(newPerson)} />
                 {this.props.storedPersons.map(person => (
                     <Person 
-                        key={person.id}
-                        name={person.name} 
-                        age={person.age} 
+                        key={person.value.id}
+                        name={person.value.name} 
+                        age={person.value.age} 
                         clicked={() => this.props.onPersonDelete(person.id)}/>
                 ))}
             </div>
