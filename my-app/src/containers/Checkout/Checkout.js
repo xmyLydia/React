@@ -3,7 +3,7 @@ import CheckoutSummary from '../../components/CheckoutSummary/CheckoutSummary';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ContactData from '../Checkout/ContactData/ContactData';
-import * as actions from '../../store/actions/index';
+
 
 class Checkout extends Component {
 
@@ -39,5 +39,5 @@ const mapStateToProps = state => {
     }
 };
 
- 
-export default connect(mapStateToProps )(Checkout);
+
+export default connect(mapStateToProps)(Checkout);

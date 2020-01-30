@@ -6,5 +6,6 @@ export {
 export {
     purchaseBurgerStart,
     purchaseInit,
-    purchaseBurger
+    purchaseBurger,
+    fetchOrders
 } from './order';

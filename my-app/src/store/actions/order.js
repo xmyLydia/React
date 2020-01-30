@@ -28,13 +28,52 @@ export const purchaseBurger = (orderData) => {
             });
     }
 };
-export const purchaseBurgerStart = ()=>{
-    return{
+export const purchaseBurgerStart = () => {
+    return {
         type: actionTypes.PURCHASE_BURGER_START
     };
 };
-export const purchaseInit = ()=>{
+export const purchaseInit = () => {
     return {
         type: actionTypes.PURCHASE_INIT
+    }
+};
+
+export const fetchOrdersSuccess = (orders) => {
+    return {
+        type: actionTypes.FETCH_ORDERS_SUCCESS,
+        orders: orders
+    }
+};
+
+export const fetchOrderFail = (error) => {
+    return {
+        type: actionTypes.FETCH_ORDERS_FAIL,
+        error: error
+    }
+};
+export const fetchOrdersStart = () => {
+    return {
+        type: actionTypes.FETCH_ORDERS_START
+    }
+};
+export const fetchOrders = () => {
+    return dispatch => {
+        dispatch(fetchOrdersStart());
+        axios.get('/orders.json')
+            .then(res => {
+                const fetchedOrders = [];
+                for (let key in res.data) {
+                    fetchedOrders.push({
+                        ...res.data[key],
+                        id: key
+                    })
+                }
+                dispatch(fetchOrdersSuccess(fetchedOrders));
+                //   this.setState({ loading: false, orders: fetchedOrders });
+            })
+            .catch(err => {
+               dispatch(fetchOrderFail(err));
+            })
     }
 }
