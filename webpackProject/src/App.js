@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
+
 import Users from './containers/Users';
-import Pizza from './containers/Pizza';
 import asyncComponent from './hoc/asyncComponent';
 
 const AsyncPizza = asyncComponent(() => {
-    return import('./containers/Pizza')
-})
+    return import('./containers/Pizza.js');
+});
+
 class App extends Component {
-    render() {
+    render () {
         return (
             <div>
                 <div>
-                    <Link to="/">Users</Link>
+                    <Link to="/">Users</Link> |
                     <Link to="/pizza">Pizza</Link>
                 </div>
                 <div>
-                    <Route path="/" exact component={Users}></Route>
-                    <Route path="/pizza" component={AsyncPizza}></Route>
+                <Route path="/pizza" component={AsyncPizza} />
+                    <Route path="/" exact component={Users} />
+                   
                 </div>
             </div>
         );
     }
 }
+
+export default App;
