@@ -5,7 +5,7 @@ import  './Modal.module.css';
 const modal = (props) => {
     const cssClasses = [
         "Modal",
-        props.show ? "ModalOpen" : "ModalClosed"
+         props.show ? "ModalOpen" : "ModalClosed"
       ];
     
       return (

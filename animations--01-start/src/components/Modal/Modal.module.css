@@ -14,7 +14,7 @@
 }
 
 .ModalOpen{ 
-    display: block;
+  display: block;
   animation: openModal 0.4s ease-out;
 }
 
