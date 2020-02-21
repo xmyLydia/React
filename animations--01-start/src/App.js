@@ -27,7 +27,16 @@ class App extends Component {
           Toggle
           </button>
         <br></br>
-        <Transition in={this.state.showBlock} timeout={1000}>
+        <Transition 
+        in={this.state.showBlock} 
+        timeout={1000}
+        onEnter = {()=>console.log('on')}
+        onEntering={()=>console.log('onEntering')}
+        onEntered={()=>console.log('onEntered')}
+        onExit={()=>console.log('onExite')}
+        onExiting={()=>console.log('onExiting')}
+        onExited={()=>console.log('onExited')}
+        >
           {state => (<div style={
             {
               backgroundColor: 'red',
