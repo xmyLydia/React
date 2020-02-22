@@ -21,11 +21,11 @@ export const authFail = (error) => {
     }
 };
 export const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expirationDate');
-    localStorage.removeItem('userId');
+    // localStorage.removeItem('token');
+    // localStorage.removeItem('expirationDate');
+    // localStorage.removeItem('userId');
     return {
-        type: actionTypes.AUTH_LOGOUT
+        type: actionTypes.AUTH_INITIATE_LOGOUT
     }
 }
 export const checkAuthTimeout = (expirationTime) => {
@@ -78,7 +78,7 @@ export const authCheckState = () => {
         } else {
             const expirationDate = new Date(localStorage.getItem('expirationDate'));
             if (expirationDate <= new Date()) {
-                dispatch(logout());
+               dispatch(logout());
             } else {
                 const userId = localStorage.getItem('userId');
                 const expriationTime = (expirationDate.getTime() - (new Date().getTime())) / 1000;
