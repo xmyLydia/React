@@ -3,9 +3,12 @@ import React, { useState, useEffect, useCallback } from 'react';
 import IngredientForm from './IngredientForm';
 import Search from './Search';
 import IngredientList from './IngredientList';
+import ErrorModal from '../UI/ErrorModal';
 
 const Ingredients = () => {
   const [userIngredients, setUserIngredients] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     console.log('Rendering ingredients', userIngredients);
@@ -16,12 +19,14 @@ const Ingredients = () => {
   }, []);
 
   const addIngredientHandler = ingredient => {
+    setIsLoading(true);
     fetch('https://hooks-e26d2.firebaseio.com/ingredients.json', {
       method: 'POST',
       body: JSON.stringify(ingredient),
       headers: { 'Content-Type': 'application/json' }
     }
     ).then(response => {
+      setIsLoading(false);
       return response.json();
     }).then(responseData => {
       setUserIngredients(prevIngredients =>
@@ -34,13 +39,30 @@ const Ingredients = () => {
 
   }
   const removeIngredientHandler = (id) => {
-    setUserIngredients(prevIngredients =>
-      prevIngredients.filter(ingredient => ingredient.id !== id)
-    )
+    setIsLoading(true);
+    fetch(`https://hooks-e26d2.firebaseio.com/ingredients/${id}.json`, {
+      method: 'DELETE'
+    }).then(response => {
+      setIsLoading(false);
+      setUserIngredients(prevIngredients =>
+        prevIngredients.filter(ingredient => ingredient.id !== id)
+      )
+    }
+    ).catch(error => {
+      setError(error.message);
+    })
+
+  }
+  const clearError = () => {
+    setError(null);
+    setIsLoading(false);
   }
   return (
     <div className="App">
-      <IngredientForm onAddIngredient={addIngredientHandler} />
+      {error && <ErrorModal onClose={clearError} >{error}</ErrorModal>}
+      <IngredientForm
+        onAddIngredient={addIngredientHandler}
+        loading={isLoading} />
 
       <section>
         <Search onLoadIngredients={filteredIngredientsHandler} />
