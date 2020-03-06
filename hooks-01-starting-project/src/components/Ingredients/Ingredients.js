@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, useCallback } from 'react';
+import React, { useReducer, useEffect, useCallback, useMemo } from 'react';
 
 import IngredientForm from './IngredientForm';
 import Search from './Search';
@@ -48,7 +48,7 @@ const Ingredients = () => {
     dispatch({ type: 'SET', ingredients: filteredIngredients })
   }, []);
 
-  const addIngredientHandler = ingredient => {
+  const addIngredientHandler = useCallback(ingredient => {
     dispatchHttp({ type: 'SEND' });
     fetch('https://hooks-e26d2.firebaseio.com/ingredients.json', {
       method: 'POST',
@@ -75,9 +75,8 @@ const Ingredients = () => {
         }
       )
     });
-
-  }
-  const removeIngredientHandler = (id) => {
+  }, []);
+  const removeIngredientHandler = useCallback((id) => {
     dispatchHttp({ type: 'SEND' });
     fetch(`https://hooks-e26d2.firebaseio.com/ingredients/${id}.json`, {
       method: 'DELETE'
@@ -91,11 +90,18 @@ const Ingredients = () => {
     ).catch(error => {
       dispatchHttp({ type: 'ERROR', errorMessage: error.message });
     })
-
-  }
-  const clearError = () => {
+  }, []);
+  const clearError = useCallback(() => {
     dispatchHttp({ type: 'CLEAR' });
-  }
+  }, []);
+  const ingredientList = useMemo(() => {
+    return (
+      <IngredientList ingredients={userIngredients}
+        onRemoveItem={removeIngredientHandler}
+      />
+    )
+  }, [userIngredients, removeIngredientHandler]);
+
   return (
     <div className="App">
       {httpState.error && <ErrorModal onClose={clearError} >{httpState.error}</ErrorModal>}
@@ -105,9 +111,7 @@ const Ingredients = () => {
 
       <section>
         <Search onLoadIngredients={filteredIngredientsHandler} />
-        <IngredientList ingredients={userIngredients}
-          onRemoveItem={removeIngredientHandler}
-        />
+        {ingredientList}
       </section>
     </div>
   );
