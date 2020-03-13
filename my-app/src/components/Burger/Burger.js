@@ -1,13 +1,13 @@
 import React from 'react';
 import classes from './Burger.module.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredients';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 const burger = (props) => {
     let transformedIngredients = Object.keys(props.ingredients)
         .map(igKey => {
-            return [...Array(props.ingredients[igKey])].map((_, i) => {
+            return props.ingredients.length > 0 ? [...Array(props.ingredients[igKey])].map((_, i) => {
                 return <BurgerIngredient key={igKey + i} type={igKey}></BurgerIngredient>;
-            });//[,]
+            }) : null;//[,]
         })
         .reduce((arr, el) => {
             return arr.concat(el);
