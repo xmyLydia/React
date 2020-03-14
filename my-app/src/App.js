@@ -17,9 +17,10 @@ const Auth = React.lazy(() => {
 });
 
 const App = props => {
+  const {onTyAutoSignup} = props;
   useEffect(() => {
-    props.onTyAutoSignup();
-  }, []);
+     onTyAutoSignup();
+  }, [onTyAutoSignup]);
 
   let routes = (
     <Switch>
