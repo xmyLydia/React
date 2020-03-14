@@ -5,9 +5,9 @@ import { withRouter } from 'react-router-dom';
 const burger = (props) => {
     let transformedIngredients = Object.keys(props.ingredients)
         .map(igKey => {
-            return props.ingredients.length > 0 ? [...Array(props.ingredients[igKey])].map((_, i) => {
-                return <BurgerIngredient key={igKey + i} type={igKey}></BurgerIngredient>;
-            }) : null;//[,]
+            return [...Array(props.ingredients[igKey])].map((_, i) => {
+                return <BurgerIngredient key={igKey + i} type={igKey} />;
+            });
         })
         .reduce((arr, el) => {
             return arr.concat(el);
