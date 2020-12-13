@@ -1,0 +1,1 @@
+1. Installed with life-server: yarn global add live-server
